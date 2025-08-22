@@ -8,19 +8,6 @@ hadiths.forEach(h => {
   const isLong = h.text.length > previewLength;
   const previewText = isLong ? h.text.slice(0, previewLength) + '...' : h.text;
 
-  // card.innerHTML = `
-  //   <blockquote class="hadith-text">${h.text}</blockquote>
-  //   <div class="hadith-meta">
-  //     <p><span class="bold">خلاصة حكم المحدث:</span> <span class="judgment-badge ${h.ruling.includes('صحيح') ? 'judgment-sahih' : h.ruling.includes('حسن') ? 'judgment-hasan' : 'judgment-daif'
-  //   }">${h.ruling}</span></p>
-  //     <p><span class="bold">الراوي:</span> ${h.narrator}</p>
-  //     <p><span class="bold">المحدث:</span> ${h.compiler}</p>
-  //     <p><span class="bold">المصدر:</span> ${h.source}</p>
-  //     <p><span class="bold">رابط:</span> <a href="${h.dorar_source}" target="_blank" rel="noopener noreferrer">الحديث موقع الدرر السنية</a></p>
-  //     <button class="copy-btn" style="margin-top:0.5rem; cursor:pointer;">نسخ الحديث</button>
-  //   </div>
-  // `;
-
   card.innerHTML = `
     <blockquote class="hadith-text">
       <span class="hadith-preview">${previewText}</span>
@@ -37,7 +24,7 @@ hadiths.forEach(h => {
       <p><span class="bold">المصدر:</span> ${h.source}</p>
       <p><span class="bold">رابط:</span> <a href="${h.dorar_source}" target="_blank" rel="noopener noreferrer">الحديث موقع الدرر السنية</a></p>
       <button class="copy-btn" style="margin-top:0.5rem; cursor:pointer;">نسخ الحديث</button>
-      ${isLong ? `<button class="toggle-hadith" style="margin-top:0.5rem; cursor:pointer;">مشاهدة المزيد</button>` : ''}
+      ${isLong ? `<button class="toggle-hadith" style="margin-top:0.5rem; cursor:pointer;">عرض الحديث كاملًا</button>` : ''}
     </div>
   `;
   grid.appendChild(card);
@@ -45,7 +32,7 @@ hadiths.forEach(h => {
 
 document.querySelectorAll('.copy-btn').forEach(btn => {
   btn.addEventListener('click', () => {
-    const hadithText = btn.closest('.hadith-card').querySelector('blockquote').innerText;
+    const hadithText = btn.closest('.hadith-card').querySelector('blockquote').querySelector('.hadith-full').innerText;
     navigator.clipboard.writeText(hadithText).then(() => {
       const popup = document.getElementById('copyPopup');
       popup.classList.add('show');
